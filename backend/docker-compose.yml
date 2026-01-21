@@ -1,0 +1,70 @@
+# ===========================================
+# TitanCare Backend Docker Compose
+# ===========================================
+#
+# Usage:
+#   Development (Redis + GUI):  docker-compose up redis redisinsight -d
+#   Development (Redis only):   docker-compose up redis -d
+#   Production (all services):  docker-compose --profile full up -d
+#
+# URLs:
+#   Redis:        localhost:6379
+#   RedisInsight: http://localhost:5540
+#   Backend API:  http://localhost:8000
+#
+# ===========================================
+
+services:
+  # Redis for session storage
+  redis:
+    image: redis:8.4-alpine
+    container_name: titancare-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes  # Persist data to disk
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # RedisInsight - Redis GUI
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: titancare-redisinsight
+    ports:
+      - "5540:5540"
+    volumes:
+      - redisinsight_data:/data
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Backend API (optional for development)
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: titancare-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    env_file:
+      - .env
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - full  # Only starts with: docker-compose --profile full up
+
+volumes:
+  redis_data:
+    driver: local
+  redisinsight_data:
+    driver: local
