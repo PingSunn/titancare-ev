@@ -1,76 +1,27 @@
-"""
-FastAPI application entry point.
-"""
-
+import asyncio
 from contextlib import asynccontextmanager
-
+import uvicorn
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
-from config import settings
-from api import router
-from models import get_model_registry
-
+from api.routes import router as chat_router
+from sessions.db import init_session_db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """
-    Application lifespan handler.
-    Initialize resources on startup and cleanup on shutdown.
-    """
-    # Startup
-    print("Starting TitanCare Backend...")
-
-    # Pre-load model registry
-    registry = get_model_registry()
-    print(f"Loaded {len(registry.list_aliases())} model aliases")
-    print(f"Default model: {registry.get_default()}")
-
+    # Setup ML models, DB connections, or Redis/SQLite sessions here
+    print("Application startup: Initializing connections")
+    await init_session_db()
+    print("SQLite session database initialized")
     yield
+    print("Application shutdown: Cleaning up resources")
 
-    # Shutdown
-    print("Shutting down TitanCare Backend...")
+app = FastAPI(lifespan=lifespan)
 
+# Register API routes
+app.include_router(chat_router, prefix="/api/v1")
 
-# Create FastAPI application
-app = FastAPI(
-    title="TitanCare Backend",
-    description="Multi-agent AI backend using OpenAI Agents SDK",
-    version="0.1.0",
-    lifespan=lifespan,
-)
-
-# Configure CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Include API router
-app.include_router(router)
-
-
-# Root endpoint
 @app.get("/")
-async def root():
-    """Root endpoint with API information."""
-    return {
-        "name": "TitanCare Backend",
-        "version": "0.1.0",
-        "docs": "/docs",
-        "health": "/api/health",
-    }
-
+def read_root():
+    return {"message": "TitanCare EV Backend API"}
 
 if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(
-        "main:app",
-        host=settings.api_host,
-        port=settings.api_port,
-        reload=settings.debug,
-    )
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
