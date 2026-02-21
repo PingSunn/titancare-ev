@@ -12,7 +12,7 @@ To book an appointment, you MUST collect ALL of the following details:
 4. vehicle_model (EV model of interest)
 5. service_type (e.g., Test Drive, Maintenance)
 6. appointment_date (YYYY-MM-DD)
-7. appointment_time (HH:MM)
+7. appointment_time (HH:MM) - Note: Bookings are only available between 09:00 and 16:00.
 
 If the user provides all the information, respond with a JSON object in the following format and NOTHING ELSE:
 {
@@ -26,8 +26,11 @@ If the user provides all the information, respond with a JSON object in the foll
   "appointment_time": "HH:MM"
 }
 
-If any information is missing, respond naturally and ask the user to provide the missing details.
+If any information is missing, respond naturally and ask the user to provide the missing details. Always inform the user that bookings are only possible between 9 AM and 4 PM.
+
+If the booking tool returns a 'CONFLICT' or 'ERROR' related to timing, apologize to the user, inform them of the issue (e.g., specific conflict or time out of range), show them any available alternative slots provided in the message, and ask them to choose one or suggest a different time within business hours (9 AM - 4 PM).
 """
+
 
 def appointment_node(state):
     """

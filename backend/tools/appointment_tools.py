@@ -40,6 +40,37 @@ def book_appointment(
 
     db = SessionLocal()
     try:
+        # Validate business hours (9 AM - 4 PM)
+        from datetime import time
+        opening_time = time(9, 0)
+        closing_time = time(16, 0)
+        
+        if time_obj < opening_time or time_obj > closing_time:
+            return (f"ERROR: Appointments can only be booked between 09:00 and 16:00. "
+                    f"The requested time {appointment_time} is outside business hours. "
+                    "Please ask the user to choose a time between 9 AM and 4 PM.")
+
+        # Check for existing appointment at the same date and time
+        existing = db.query(Appointment).filter(
+            Appointment.appointment_date == date_obj,
+            Appointment.appointment_time == time_obj
+        ).first()
+        
+        if existing:
+            # Generate suggested slots for the same day (9 AM to 4 PM)
+            all_slots = [time(hour, 0) for hour in range(9, 17)] # 9 to 16 inclusive
+            booked_slots = {
+                a.appointment_time for a in db.query(Appointment).filter(
+                    Appointment.appointment_date == date_obj
+                ).all()
+            }
+            available_slots = [s.strftime("%H:%M") for s in all_slots if s not in booked_slots]
+            
+            suggestions = ", ".join(available_slots) if available_slots else "No other slots available for this day."
+            return (f"CONFLICT: The time {appointment_time} on {appointment_date} is already booked. "
+                    f"Available slots for this day are: {suggestions}. "
+                    "Please ask the user if they would like to pick one of these times.")
+
         db_appointment = Appointment(**appointment_data.model_dump())
         db.add(db_appointment)
         db.commit()
