@@ -1,75 +1,16 @@
-# TitanCare Frontend
+# React + Vite
 
-React chat interface built with Vite, TypeScript, Tailwind CSS v4, and shadcn/ui.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Tech Stack
+Currently, two official plugins are available:
 
-- **React 19** - UI framework
-- **Vite 7** - Build tool
-- **TypeScript 5** - Type safety
-- **Tailwind CSS v4** - Styling
-- **shadcn/ui** - UI components (Radix UI)
-- **lucide-react** - Icons
-- **react-markdown** - Markdown rendering
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Project Structure
+## React Compiler
 
-```
-src/
-├── components/
-│   ├── chat/               # Chat UI components
-│   │   ├── ChatLayout.tsx      # Main layout (sidebar + chat)
-│   │   ├── Sidebar.tsx         # Session list
-│   │   ├── ChatArea.tsx        # Messages + input
-│   │   ├── MessageList.tsx     # Message display
-│   │   ├── MessageBubble.tsx   # Single message
-│   │   └── ChatInput.tsx       # Input field
-│   └── ui/                 # shadcn components
-├── hooks/
-│   ├── useChat.ts          # Chat state management
-│   └── useSessions.ts      # Session persistence
-├── services/
-│   └── api.ts              # Backend API client
-├── types/
-│   └── index.ts            # TypeScript interfaces
-├── lib/
-│   └── utils.ts            # Utility functions (cn)
-├── App.tsx                 # Main app
-├── main.tsx                # Entry point
-└── index.css               # Tailwind + theme
-```
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Development
+## Expanding the ESLint configuration
 
-```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Type check
-npx tsc --noEmit
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-## Environment Variables
-
-Create a `.env.local` file (optional):
-
-```env
-VITE_API_URL=http://localhost:8000/api
-```
-
-## Adding shadcn Components
-
-```bash
-npx shadcn@latest add [component-name]
-```
-
-Available at: https://ui.shadcn.com/docs/components
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
