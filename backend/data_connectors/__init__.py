@@ -1,4 +1,4 @@
-from .sql_connector import query_database_tool
-from .pdf_connector import search_brochures_tool
+from .sql_connector import get_sql_query_engine
+from .pdf_connector import get_brochure_index
 
-__all__ = ["query_database_tool", "search_brochures_tool"]
+__all__ = ["get_sql_query_engine", "get_brochure_index"]
