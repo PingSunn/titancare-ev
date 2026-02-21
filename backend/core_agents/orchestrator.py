@@ -1,33 +1,75 @@
-from llama_index.core.agent.workflow import AgentWorkflow, FunctionAgent
-from llama_index.llms.ollama import Ollama
-from core_agents.car import create_car_agent
-from core_agents.appointment import create_appointment_agent
-from core_agents.summarizer import create_summarizer_agent
+from typing import TypedDict, Annotated, Literal
+import operator
+from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage
+from langgraph.graph import StateGraph, START, END
+from langgraph.prebuilt import ToolNode
 
-local_llm = Ollama(model="llama3.1", request_timeout=360.0, context_window=8000)
+from core_agents.car import car_node
+from core_agents.appointment import appointment_node
+from core_agents.llm_config import local_llm
 
-def create_workflow() -> AgentWorkflow:
-    car_agent = create_car_agent()
-    appointment_agent = create_appointment_agent()
-    summarizer_agent = create_summarizer_agent()
+# 1. Define the State
+class AgentState(TypedDict):
+    # The `operator.add` reducer means messages are appended rather than overwritten
+    messages: Annotated[list[BaseMessage], operator.add]
 
-    orchestrator_agent = FunctionAgent(
-        name="OrchestratorAgent",
-        description="The main entry point. Routes to CarAgent for car details, or AppointmentAgent for bookings.",
-        system_prompt=(
-            "You are the TitanCare orchestrator. Analyze the user request. "
-            "If they are asking for car details, inventory, or specifications, hand off to the CarAgent. "
-            "If they are asking to book an appointment or schedule service, hand off to the AppointmentAgent. "
-            "If it is a general greeting or simple question, hand off directly to the SummarizerAgent with your message."
-        ),
-        llm=local_llm,
-        tools=[],
-        can_handoff_to=["CarAgent", "AppointmentAgent", "SummarizerAgent"],
-    )
-
-    workflow = AgentWorkflow(
-        agents=[orchestrator_agent, car_agent, appointment_agent, summarizer_agent],
-        root_agent="OrchestratorAgent",
+# 2. Define the Router Logic
+def route_query(state: AgentState) -> Literal["car_node", "appointment_node", "general"]:
+    """
+    Analyzes the latest user message and routes to the appropriate specialized node.
+    """
+    last_message = state["messages"][-1]
+    
+    routing_prompt = (
+        "You are the TitanCare orchestrator. Analyze the following user request and output ONLY ONE WORD indicating the target agent:\n"
+        "- 'CAR' if they are asking for car details, inventory, specifications, or brochures.\n"
+        "- 'APPOINTMENT' if they are asking to book an appointment, schedule service, or test drive.\n"
+        "- 'GENERAL' if it is a general greeting or simple question.\n\n"
+        f"User Request: {last_message.content}\n"
+        "Target Agent:"
     )
     
-    return workflow
+    # We use the raw LLM here to get a string response
+    response_text = local_llm.invoke(routing_prompt).content.strip().upper()
+    
+    if "CAR" in response_text:
+        return "car_node"
+    elif "APPOINTMENT" in response_text:
+        return "appointment_node"
+    else:
+        return "general"
+
+def general_node(state: AgentState):
+    """Fallback node for basic conversational greetings."""
+    response = local_llm.invoke(
+        [SystemMessage(content="You are TitanCare, a helpful EV assistant. Please greet the user.")] + state["messages"]
+    )
+    return {"messages": [response]}
+
+# 3. Build the Graph
+def create_workflow():
+    workflow = StateGraph(AgentState)
+    
+    # Add nodes
+    workflow.add_node("car_node", car_node)
+    workflow.add_node("appointment_node", appointment_node)
+    workflow.add_node("general_node", general_node)
+    
+    # Define routing
+    workflow.add_conditional_edges(
+        START,
+        route_query,
+        {
+            "car_node": "car_node",
+            "appointment_node": "appointment_node",
+            "general": "general_node"
+        }
+    )
+    
+    # All nodes simply end after generation right now. 
+    # Tool execution happens autonomously inside the bounds of the LangChain LLM
+    workflow.add_edge("car_node", END)
+    workflow.add_edge("appointment_node", END)
+    workflow.add_edge("general_node", END)
+    
+    return workflow.compile()

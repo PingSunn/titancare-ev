@@ -1,6 +1,6 @@
 # LiteLLM Aliases Configuration
 # Local Ollama mappings
-llama3=ollama/llama3
+llama3=ollama/llama3:latest
 default=llama3
 
 # You can switch 'default' to other models if keys are set in .env
