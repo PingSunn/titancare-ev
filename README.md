@@ -16,8 +16,16 @@ An AI Agent chatbot that supports user questions using a multi-agent architectur
 │                (FastAPI + LlamaIndex)                       │
 │                    localhost:8000                           │
 ├─────────────────────────────────────────────────────────────┤
-│  Data Connectors ──► Specialized Agents                     │
-│  (SQL & PDF RAG)                                            │
+│                    Orchestrator Agent                       │
+│                            │                                │
+│             ┌──────────────┴──────────────┐                 │
+│             ▼                             ▼                 │
+│    Appointment Agent                  Car Agent             │
+│     (SQL Database)                 (SQL & PDF RAG)          │
+│             │                             │                 │
+│             └──────────────┬──────────────┘                 │
+│                            ▼                                │
+│                     Summarizer Agent                        │
 └─────────────────────┬───────────────────────────────────────┘
                       │
 ┌─────────────────────▼───────────────────────────────────────┐
@@ -33,12 +41,16 @@ An AI Agent chatbot that supports user questions using a multi-agent architectur
 titancare-ev/
 ├── backend/                    # Python backend (FastAPI + LlamaIndex)
 │   ├── core_agents/            # Agent definitions
-│   │   └── specialized.py
+│   │   ├── orchestrator.py
+│   │   ├── appointment.py
+│   │   ├── car.py
+│   │   └── summarizer.py
 │   ├── api/                    # FastAPI routes
 │   ├── data_connectors/        # SQL and PDF integrations
 │   │   ├── sql_connector.py
 │   │   └── pdf_connector.py
 │   ├── sessions/               # SQLite session management
+│   ├── titancare.db            # SQLite database file
 │   ├── llms.txt                # LiteLLM/Local Ollama model mapping
 │   ├── pyproject.toml          # uv managed dependencies
 │   └── main.py                 # FastAPI entry point

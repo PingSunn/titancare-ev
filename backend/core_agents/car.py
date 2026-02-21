@@ -5,9 +5,9 @@ from tools.pdf_tools import search_brochures_tool
 
 local_llm = Ollama(model="llama3.1", request_timeout=360.0, context_window=8000)
 
-def create_question_agent():
+def create_car_agent():
     agent = FunctionAgent(
-        name="QuestionAgent",
+        name="CarAgent",
         description="Search for car details and specs using the SQL database or PDF brochures. Pass notes to the SummarizerAgent.",
         system_prompt=(
             "You are a specialized agent for car details and brochures. "

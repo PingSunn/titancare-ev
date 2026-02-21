@@ -5,7 +5,7 @@ from llama_index.core.query_engine import NLSQLTableQueryEngine
 
 # Temporary configuration for the SQLAlchemy engine
 # In a real scenario, this would point to the actual database file
-DB_URL = "sqlite:///./car_data.db"
+DB_URL = "sqlite:///./titancare.db"
 engine = create_engine(DB_URL)
 
 # Wrap engine with LlamaIndex SQLDatabase

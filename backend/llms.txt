@@ -1,7 +1,7 @@
 # LiteLLM Aliases Configuration
 # Local Ollama mappings
-ollama/llama3=ollama/llama3
-default=ollama/llama3
+llama3=ollama/llama3
+default=llama3
 
 # You can switch 'default' to other models if keys are set in .env
 # default=gpt-4o-mini
