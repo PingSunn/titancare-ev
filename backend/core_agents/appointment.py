@@ -39,18 +39,20 @@ def appointment_node(state):
     """
     messages = [SystemMessage(content=_BOOKING_SYSTEM_PROMPT)] + state["messages"]
     
+    from langchain_core.output_parsers import JsonOutputParser
+    
     # Get LLM response
     response = local_llm.invoke(messages)
     response_text = response.content.strip()
 
     # Attempt to parse the JSON tool call from the model output
     try:
-        # Find JSON block in response
         json_start = response_text.find("{")
         json_end = response_text.rfind("}") + 1
         if json_start != -1 and json_end > json_start:
             json_str = response_text[json_start:json_end]
-            parsed = json.loads(json_str)
+            parser = JsonOutputParser()
+            parsed = parser.invoke(json_str)
             
             if parsed.get("action") == "book_appointment":
                 # Execute the actual tool
@@ -66,7 +68,8 @@ def appointment_node(state):
                 # Respond with booking confirmation
                 final_response = AIMessage(content=f"Great news! I've successfully booked your appointment. {result}")
                 return {"messages": [final_response]}
-    except (json.JSONDecodeError, KeyError):
-        pass  # Not a tool call, return the conversational response as-is
+    except Exception:
+        # Not a valid JSON tool call, returning the conversational response as-is
+        pass
 
     return {"messages": [response]}
