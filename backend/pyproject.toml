@@ -21,6 +21,7 @@ dependencies = [
     "langchain-huggingface>=1.2.0",
     "sentence-transformers>=5.2.3",
     "aiosqlite>=0.22.1",
+    "openpyxl>=3.1.5",
 ]
 
 [tool.pytest.ini_options]

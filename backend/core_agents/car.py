@@ -7,13 +7,13 @@ from langchain_core.messages import SystemMessage, AIMessage
 _CAR_SYSTEM_PROMPT = """You are a specialized agent for car details and EV brochures at TitanCare EV.
 
 To look up information, you have access to two tools:
-1. query_database: Use this to search structured car data (specs, pricing, inventory)
-2. search_brochures: Use this to search PDF brochures for unstructured documentation
+1. query_database: Use this to search structured car data (pricing, current inventory, color availability)
+2. search_brochures: Use this to search PDF brochures for detailed vehicle specs, interior/exterior dimensions, and unstructured documentation
 
 If you need to use a tool, respond ONLY with a JSON object like this:
 {"action": "query_database", "query": "your natural language query here"}
 OR
-{"action": "search_brochures", "query": "your natural language query here"}
+{"action": "search_brochures", "query": "the EXACT original question the user asked (do not shorten it)"}
 
 If you already have the information to answer the user directly, respond naturally in plain text.
 """
@@ -30,6 +30,9 @@ def car_node(state):
     # First LLM call — decide if a tool is needed
     response = local_llm.invoke(messages)
     response_text = response.content.strip()
+    print("--- CAR NODE INITIAL LLM RESPONSE ---")
+    print(response_text)
+    print("-------------------------------------")
     
     tool_result = None
     try:
@@ -37,30 +40,47 @@ def car_node(state):
         json_end = response_text.rfind("}") + 1
         if json_start != -1 and json_end > json_start:
             json_str = response_text[json_start:json_end]
+            print("--- EXTRACTED JSON STRING ---")
+            print(json_str)
             parser = JsonOutputParser()
             parsed = parser.invoke(json_str)
+            print("--- PARSED JSON DICT ---")
+            print(parsed)
             
             action = parsed.get("action")
             query = parsed.get("query", "")
 
+            print(f"--- MATCHING ACTION: {action} ---")
             if action == "query_database":
                 tool_result = query_database_tool.invoke({"query_str": query})
             elif action == "search_brochures":
+                print("--- INVOKING PDF TOOL ---")
                 tool_result = search_brochures_tool.invoke({"query_str": query})
-    except Exception:
-        # If output parser fails, it means the LLM didn't return valid JSON,
-        # so we assume it answered naturally.
+                print("--- PDF TOOL FINISHED ---")
+    except Exception as e:
+        # If output parser fails, let's print it to know why
+        print("--- PARSER/TOOL ERROR ---")
+        import traceback
+        traceback.print_exc()
+        print("-------------------------")
         pass
 
     if tool_result:
+        print("--- TOOL EXECUTION RESULT ---")
+        print(tool_result)
+        print("-----------------------------")
         from langchain_core.messages import HumanMessage
         # Feed the tool result back so the LLM can form a final answer
         summary_prompt = (
             f"Based on the following data retrieved from our database/brochures, "
-            f"please answer the user's question in a friendly and informative way:\n\n"
+            f"answer the user's question directly and concisely.\n"
+            f"CRITICAL: DO NOT add conversational filler like 'Ah-ha!' or 'I found some information'. "
+            f"Just state the requested facts directly.\n\n"
             f"Data: {tool_result}"
         )
-        final_messages = messages + [HumanMessage(content=summary_prompt)]
+        # Create a new system message that doesn't demand JSON
+        summary_system = SystemMessage(content="You are a specialized car agent for TitanCare EV. Answer the user in plain text.")
+        final_messages = [summary_system] + state["messages"] + [HumanMessage(content=summary_prompt)]
         final_response = local_llm.invoke(final_messages)
         return {"messages": [final_response]}
 
