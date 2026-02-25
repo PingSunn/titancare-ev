@@ -2,8 +2,35 @@ from typing import Optional
 from langchain_core.tools import tool
 from database import SessionLocal
 from models.appointment import Appointment
+from models.car import Car
 from schemas.appointment import AppointmentCreate
 from datetime import datetime
+
+
+@tool
+def get_available_car_models() -> str:
+    """
+    Returns the list of all EV car models and sub-models available in the database.
+    Call this tool BEFORE booking an appointment so you know which vehicle models
+    are valid and can help the user choose the correct one.
+    """
+    db = SessionLocal()
+    try:
+        cars = db.query(Car.model, Car.sub_model).distinct().order_by(Car.model, Car.sub_model).all()
+        if not cars:
+            return "No car models found in the database."
+        lines = []
+        for model, sub_model in cars:
+            if sub_model:
+                lines.append(f"- {model} ({sub_model})")
+            else:
+                lines.append(f"- {model}")
+        return "Available car models:\n" + "\n".join(lines)
+    except Exception as e:
+        return f"Failed to retrieve car models: {e}"
+    finally:
+        db.close()
+
 
 @tool
 def book_appointment(
@@ -19,6 +46,7 @@ def book_appointment(
     """
     Tool to definitely book an appointment. Use this whenever the user requests a booking and provides all necessary information.
     The appointment_date should be in YYYY-MM-DD format. The appointment_time should be in HH:MM format.
+    Before calling this tool, call get_available_car_models to validate the vehicle model.
     """
     try:
         date_obj = datetime.strptime(appointment_date, "%Y-%m-%d").date()
@@ -40,6 +68,23 @@ def book_appointment(
 
     db = SessionLocal()
     try:
+        # Validate vehicle model against the cars table (case-insensitive)
+        matched_car = db.query(Car).filter(
+            Car.model.ilike(f"%{vehicle_model}%")
+        ).first()
+
+        if not matched_car:
+            # Fetch available models to guide the user
+            cars = db.query(Car.model, Car.sub_model).distinct().order_by(Car.model).all()
+            model_list = ", ".join(
+                f"{m} ({s})" if s else m for m, s in cars
+            ) or "none found"
+            return (
+                f"ERROR: Vehicle model '{vehicle_model}' was not found in our database. "
+                f"Available models are: {model_list}. "
+                "Please ask the user to choose a valid model."
+            )
+
         # Validate business hours (9 AM - 4 PM)
         from datetime import time
         opening_time = time(9, 0)
@@ -58,7 +103,7 @@ def book_appointment(
         
         if existing:
             # Generate suggested slots for the same day (9 AM to 4 PM)
-            all_slots = [time(hour, 0) for hour in range(9, 17)] # 9 to 16 inclusive
+            all_slots = [time(hour, 0) for hour in range(9, 17)]  # 9 to 16 inclusive
             booked_slots = {
                 a.appointment_time for a in db.query(Appointment).filter(
                     Appointment.appointment_date == date_obj

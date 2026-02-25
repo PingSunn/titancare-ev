@@ -32,6 +32,7 @@ def query_database_tool(query_str: str) -> str:
     - acceleration_0_100_s: 0–100 km/h time in seconds
     - drive_mode: available drive modes (e.g. 'ECO/NORMAL/SPORT', 'Front Wheel Drive')
 
+    IMPORTANT: There is NO 'service_type' column in the cars table. Do NOT filter by service_type.
     Use this tool for questions about price, range, battery, performance, dimensions, charging, or comparing models.
     """
     db = get_sql_database()
@@ -43,14 +44,30 @@ def query_database_tool(query_str: str) -> str:
     try:
         # Step 1: Generate the SQL
         generated_sql = chain.invoke({"question": query_str})
-        
-        # Step 2: Strip any markdown fencing the model might add
+
+        # Step 2: Extract only the SQL portion from the LLM output.
+        # llama3 / create_sql_query_chain often echoes the full prompt:
+        #   "Question: ...
+        #    SQLQuery: SELECT ..."
+        # We must strip everything before (and including) "SQLQuery:".
         sql = generated_sql.strip()
+
+        # Handle "SQLQuery:" prefix (case-insensitive)
+        lower_sql = sql.lower()
+        sql_keyword = "sqlquery:"
+        if sql_keyword in lower_sql:
+            sql = sql[lower_sql.index(sql_keyword) + len(sql_keyword):].strip()
+
+        # Handle markdown fencing (```sql ... ``` or ``` ... ```)
         if sql.startswith("```"):
             sql = sql.split("```")[1].strip()
             if sql.lower().startswith("sql"):
                 sql = sql[3:].strip()
-        
+
+        # Safety: reject anything that still starts with a non-SQL keyword
+        if not sql.upper().startswith(("SELECT", "WITH", "EXPLAIN")):
+            return f"Database query failed: LLM produced an unexpected output: {sql[:200]}"
+
         # Step 3: Execute the query
         result = db.run(sql)
         return result if result else "No results found."
