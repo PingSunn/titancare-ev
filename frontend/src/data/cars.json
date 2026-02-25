@@ -1,0 +1,515 @@
+[
+  {
+    "Models": "ALON UT",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "STANDARD",
+        "Starting_price": "549,900",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4270 x 1850 x 1575",
+          "Wheelbase_mm": "2750",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "440 - 1660",
+          "Curb_Weight_Kg": "1540"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LEP",
+          "Battery_Capacity_kWh": "44.12",
+          "Range_km": "400 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "7 kW",
+            "DC_CCS2": "87 kW"
+          },
+          "Max_Power_kW": "100",
+          "Max_Torque_Nm": "145",
+          "Acceleration_0_100_s": "11.4",
+          "Drive_Mode": "Front Wheel Drive",
+          "Max_DC_Fast_Charge_kW": "64",
+          "DC_Fast_Charge_Time_30_80": "24 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "PREMUIM",
+        "Starting_price": "649,900",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4270 x 1850 x 1575",
+          "Wheelbase_mm": "2750",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "440 - 1660",
+          "Curb_Weight_Kg": "1700"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LEP",
+          "Battery_Capacity_kWh": "60",
+          "Range_km": "500 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "7 kW",
+            "DC_CCS2": "87 kW"
+          },
+          "Max_Power_kW": "150",
+          "Max_Torque_Nm": "210",
+          "Acceleration_0_100_s": "7.3",
+          "Drive_Mode": "Front Wheel Drive",
+          "Max_DC_Fast_Charge_kW": "87",
+          "DC_Fast_Charge_Time_30_80": "24 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "BYD ATTO 3",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "PREMUIM",
+        "Starting_price": "949,900",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4455 x 1875 x 1615",
+          "Wheelbase_mm": "2720",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "440 - 1340",
+          "Curb_Weight_Kg": "1680"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "BYD Blade Battery",
+          "Battery_Capacity_kWh": "50.25",
+          "Range_km": "410 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "7 kW",
+            "DC_CCS2": "70 kW"
+          },
+          "Max_Power_kW": "150",
+          "Max_Torque_Nm": "310",
+          "Acceleration_0_100_s": "7.9",
+          "Drive_Mode": "ECO / NORMAL / SPORT",
+          "Max_DC_Fast_Charge_kW": "110",
+          "DC_Fast_Charge_Time_30_80": "35 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "EXTENDED",
+        "Starting_price": "1,049,900",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4455 x 1875 x 1615",
+          "Wheelbase_mm": "2720",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "440 - 1340",
+          "Curb_Weight_Kg": "1750"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "BYD Blade Battery",
+          "Battery_Capacity_kWh": "60.48",
+          "Range_km": "480 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "7 kW",
+            "DC_CCS2": "88 kW"
+          },
+          "Max_Power_kW": "150",
+          "Max_Torque_Nm": "310",
+          "Acceleration_0_100_s": "7.3",
+          "Drive_Mode": "ECO / NORMAL / SPORT",
+          "Max_DC_Fast_Charge_kW": "110",
+          "DC_Fast_Charge_Time_30_80": "35 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "BYD SEALION 7",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "PREMUIM",
+        "Starting_price": "1,249,900",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4830 x 1925 x 1620",
+          "Wheelbase_mm": "2930",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "558",
+          "Curb_Weight_Kg": "2225"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "BYD Blade Battery",
+          "Battery_Capacity_kWh": "82.5",
+          "Range_km": "567 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "11 kW",
+            "DC_CCS2": "150 kW"
+          },
+          "Max_Power_kW": "230",
+          "Max_Torque_Nm": "380",
+          "Acceleration_0_100_s": "6.7",
+          "Drive_Mode": "RWD / AWD",
+          "Max_DC_Fast_Charge_kW": "150",
+          "DC_Fast_Charge_Time_30_80": "25 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "AWD PERFORMANCE",
+        "Starting_price": "1,399,900",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4830 x 1925 x 1620",
+          "Wheelbase_mm": "2930",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "558",
+          "Curb_Weight_Kg": "2340"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "BYD Blade Battery",
+          "Battery_Capacity_kWh": "82.5",
+          "Range_km": "542 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "11 kW",
+            "DC_CCS2": "150 kW"
+          },
+          "Max_Power_kW": "380",
+          "Max_Torque_Nm": "690",
+          "Acceleration_0_100_s": "4.5",
+          "Drive_Mode": "RWD / AWD",
+          "Max_DC_Fast_Charge_kW": "150",
+          "DC_Fast_Charge_Time_30_80": "25 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "GEELY EX2",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "PRO",
+        "Starting_price": "399,990",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4135 x 1805 x 1580",
+          "Wheelbase_mm": "2650",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "375 - 1320",
+          "Curb_Weight_Kg": "1300"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "40.8",
+          "Range_km": "395 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "11 kW",
+            "DC_CCS2": "150 kW"
+          },
+          "Max_Power_kW": "85",
+          "Max_Torque_Nm": "150",
+          "Acceleration_0_100_s": "11.5",
+          "Drive_Mode": "ECO / COMFORT / SPORT",
+          "Max_DC_Fast_Charge_kW": "70",
+          "DC_Fast_Charge_Time_30_80": "25 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "MAX",
+        "Starting_price": "429,990",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4135 x 1805 x 1580",
+          "Wheelbase_mm": "2650",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "375 - 1320",
+          "Curb_Weight_Kg": "1300"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "40.8",
+          "Range_km": "395 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "11 kW",
+            "DC_CCS2": "150 kW"
+          },
+          "Max_Power_kW": "85",
+          "Max_Torque_Nm": "150",
+          "Acceleration_0_100_s": "11.5",
+          "Drive_Mode": "ECO / COMFORT / SPORT",
+          "Max_DC_Fast_Charge_kW": "70",
+          "DC_Fast_Charge_Time_30_80": "25 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "GEELY EX5",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "PRO",
+        "Starting_price": "699,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4615 x 1901 x 1670",
+          "Wheelbase_mm": "2750",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "461 - 1877",
+          "Curb_Weight_Kg": "1715"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "60.22",
+          "Range_km": "495 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "11 kW",
+            "DC_CCS2": "150 kW"
+          },
+          "Max_Power_kW": "160",
+          "Max_Torque_Nm": "320",
+          "Acceleration_0_100_s": "6.9",
+          "Drive_Mode": "ECO / NORMAL / SPORT",
+          "Max_DC_Fast_Charge_kW": "100",
+          "DC_Fast_Charge_Time_30_80": "20 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "MAX",
+        "Starting_price": "849,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4615 x 1901 x 1670",
+          "Wheelbase_mm": "2750",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "461 - 1877",
+          "Curb_Weight_Kg": "1765"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "60.22",
+          "Range_km": "490 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "11 kW",
+            "DC_CCS2": "150 kW"
+          },
+          "Max_Power_kW": "160",
+          "Max_Torque_Nm": "320",
+          "Acceleration_0_100_s": "7.1",
+          "Drive_Mode": "ECO / NORMAL / SPORT",
+          "Max_DC_Fast_Charge_kW": "100",
+          "DC_Fast_Charge_Time_30_80": "20 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "JAECOO 6 EV",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "Long Range 2WD PRO",
+        "Starting_price": "899,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4406 x 1910 x 1715",
+          "Wheelbase_mm": "2715",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "450",
+          "Curb_Weight_Kg": "1820"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "65.69",
+          "Range_km": "426 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "6.6 kW",
+            "DC_CCS2": "80 kW"
+          },
+          "Max_Power_kW": "135",
+          "Max_Torque_Nm": "220",
+          "Acceleration_0_100_s": "10.5",
+          "Drive_Mode": "ECO / NORMAL / SPORT / CUSTOM",
+          "Max_DC_Fast_Charge_kW": "80",
+          "DC_Fast_Charge_Time_30_80": "30 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "Long Range 2WD",
+        "Starting_price": "1,099,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4406 x 1910 x 1715",
+          "Wheelbase_mm": "2715",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "450",
+          "Curb_Weight_Kg": "1800"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "65.69",
+          "Range_km": "426 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "6.6 kW",
+            "DC_CCS2": "80 kW"
+          },
+          "Max_Power_kW": "135",
+          "Max_Torque_Nm": "220",
+          "Acceleration_0_100_s": "10.5",
+          "Drive_Mode": "ECO / NORMAL / SPORT / CUSTOM",
+          "Max_DC_Fast_Charge_kW": "80",
+          "DC_Fast_Charge_Time_30_80": "30 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "Long Range 4WD",
+        "Starting_price": "1,249,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4406 x 1910 x 1715",
+          "Wheelbase_mm": "2715",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "450",
+          "Curb_Weight_Kg": "1975"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "69.77",
+          "Range_km": "418 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "6.6 kW",
+            "DC_CCS2": "80 kW"
+          },
+          "Max_Power_kW": "205",
+          "Max_Torque_Nm": "385",
+          "Acceleration_0_100_s": "6.5",
+          "Drive_Mode": "ECO / NORMAL / SPORT / CUSTOM / ALL ROAD / SLIPPERY / BEACH / MUDDY / BUMPY",
+          "Max_DC_Fast_Charge_kW": "80",
+          "DC_Fast_Charge_Time_30_80": "30 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "MG 4 ELECTRIC",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "49 kWH : D",
+        "Starting_price": "709,900",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4287 x 1836 x 1516",
+          "Wheelbase_mm": "2750",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "363",
+          "Curb_Weight_Kg": "1620"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "49",
+          "Range_km": "423 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "6.6 kW",
+            "DC_CCS2": "117 kW"
+          },
+          "Max_Power_kW": "125",
+          "Max_Torque_Nm": "250",
+          "Acceleration_0_100_s": "7.7",
+          "Drive_Mode": "ECO / NORMAL / SPORT",
+          "Max_DC_Fast_Charge_kW": "117",
+          "DC_Fast_Charge_Time_30_80": "35 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "NETA V -II",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "LITE",
+        "Starting_price": "549,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4070 x 1690 x 1540",
+          "Wheelbase_mm": "2420",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "335 - 588",
+          "Curb_Weight_Kg": "1180"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "36.1",
+          "Range_km": "382 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "6.6 kW",
+            "DC_CCS2": "100 kW"
+          },
+          "Max_Power_kW": "70",
+          "Max_Torque_Nm": "150",
+          "Acceleration_0_100_s": "12",
+          "Drive_Mode": "ECO / NORMAL / SPORT",
+          "Max_DC_Fast_Charge_kW": "100",
+          "DC_Fast_Charge_Time_30_80": "30 min",
+          "V2L": "true"
+        }
+      },
+      {
+        "Sub_model": "SMART",
+        "Starting_price": "569,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4070 x 1690 x 1540",
+          "Wheelbase_mm": "2420",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "335 - 588",
+          "Curb_Weight_Kg": "1180"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "LITHIUM IRON PHOSPHATE",
+          "Battery_Capacity_kWh": "36.1",
+          "Range_km": "382 (NEDC)",
+          "Charging_Port": {
+            "AC_Type2": "6.6 kW",
+            "DC_CCS2": "100 kW"
+          },
+          "Max_Power_kW": "70",
+          "Max_Torque_Nm": "150",
+          "Acceleration_0_100_s": "12",
+          "Drive_Mode": "ECO / NORMAL / SPORT",
+          "Max_DC_Fast_Charge_kW": "100",
+          "DC_Fast_Charge_Time_30_80": "30 min",
+          "V2L": "true"
+        }
+      }
+    ]
+  },
+  {
+    "Models": "TESLA Model 3",
+    "image": "byd_atto_3_premium.png",
+    "Variants": [
+      {
+        "Sub_model": "STANDARD RWD",
+        "Starting_price": "1,149,000",
+        "DIMENSIONS": {
+          "Size_LxWxH_mm": "4720 x 1850 x 1440",
+          "Wheelbase_mm": "2875",
+          "Seating_Capacity": "5",
+          "Trunk_Volume_L": "682",
+          "Curb_Weight_Kg": "1760 - 1851"
+        },
+        "PERFORMANCE": {
+          "Battery_Type": "Liquid-cooled lithium ion (Li-ion)",
+          "Battery_Capacity_kWh": "57.5",
+          "Range_km": "534 (WLTP)",
+          "Charging_Port": {
+            "AC_Type2": "11 kW",
+            "DC_CCS2": "250 kW"
+          },
+          "Max_Power_kW": "208",
+          "Max_Torque_Nm": "420",
+          "Acceleration_0_100_s": "6.2",
+          "Drive_Mode": "CHILL / STANDARD / SPORT",
+          "Max_DC_Fast_Charge_kW": "175",
+          "DC_Fast_Charge_Time_30_80": "25 min",
+          "V2L": "flase"
+        }
+      }
+    ]
+  }
+]
