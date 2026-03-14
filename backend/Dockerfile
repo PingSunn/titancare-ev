@@ -1,5 +1,9 @@
 FROM python:3.13-slim
 
+# Install Node.js (required by prisma-client-py to generate the client)
+RUN apt-get update && apt-get install -y --no-install-recommends nodejs npm \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
