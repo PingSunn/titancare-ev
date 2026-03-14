@@ -17,10 +17,12 @@ def search_brochures_tool(query_str: str) -> str:
             return "No PDF brochures are currently available. Please add PDF files to the data directory."
 
         # Setup RAG chain
-        retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+        retriever = vectorstore.as_retriever(search_kwargs={"k": 25})
         
-        prompt = ChatPromptTemplate.from_template('''Answer the following question based only on the provided context. If the answer is not in the context, say so.
-        
+        prompt = ChatPromptTemplate.from_template('''Extract and list the specific numbers or facts from the context below that answer the question.
+If the context contains the values, state them exactly as they appear. Do not say "not available" if numbers are present in the context.
+Keep the answer concise — numbers and units only, no filler.
+
 <context>
 {context}
 </context>

@@ -7,21 +7,23 @@ from sessions.db import init_session_db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Setup ML models, DB connections, or Redis/SQLite sessions here
     print("Application startup: Initializing connections")
-    
+
     # Initialize conversational sessions DB
     await init_session_db()
     print("SQLite session database initialized")
-    
-    # Initialize relational database tables
-    import database
-    from models import appointment
-    database.Base.metadata.create_all(bind=database.engine)
-    print("SQLAlchemy database tables created/verified")
-    
+
+    # Connect Prisma client to Supabase
+    from db import get_client
+    await get_client()
+    print("Prisma connected to Supabase")
+
     yield
-    print("Application shutdown: Cleaning up resources")
+
+    # Disconnect Prisma on shutdown
+    from db import disconnect
+    await disconnect()
+    print("Application shutdown: Prisma disconnected")
 
 app = FastAPI(lifespan=lifespan)
 
