@@ -1,14 +1,14 @@
 import os
+from dotenv import load_dotenv
 from langchain_community.utilities import SQLDatabase
 
-# Configuration for the SQLAlchemy engine
-DB_URL = "sqlite:///./titancare.db"
+load_dotenv()
 
-def get_sql_database():
+
+def get_sql_database() -> SQLDatabase:
     """
-    Returns a configured LangChain SQLDatabase connection.
-    This database object can be passed to a create_sql_query_chain or similar tool.
+    Returns a LangChain SQLDatabase connected to Supabase (PostgreSQL).
+    Used by create_sql_query_chain for natural-language SQL generation.
     """
-    return SQLDatabase.from_uri(DB_URL)
-
-
+    url = os.environ["DIRECT_URL"]
+    return SQLDatabase.from_uri(url)

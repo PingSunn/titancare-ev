@@ -22,6 +22,8 @@ dependencies = [
     "sentence-transformers>=5.2.3",
     "aiosqlite>=0.22.1",
     "openpyxl>=3.1.5",
+    "prisma>=0.15.0",
+    "psycopg2-binary>=2.9.11",
 ]
 
 [tool.pytest.ini_options]
@@ -32,4 +34,6 @@ pythonpath = [
 [dependency-groups]
 dev = [
     "pytest>=9.0.2",
+    "pytest-timeout>=2.4.0",
+    "pytest-xdist>=3.8.0",
 ]

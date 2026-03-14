@@ -31,7 +31,8 @@ def get_llm():
     if model_val.startswith("ollama/"):
         model_val = model_val.replace("ollama/", "")
         
-    return ChatOllama(model=model_val, temperature=0.0)
+    ollama_base_url = os.getenv("OLLAMA_API_BASE", "http://localhost:11434")
+    return ChatOllama(model=model_val, temperature=0.0, base_url=ollama_base_url)
 
 # Create a singleton instance for global use
 local_llm = get_llm()
