@@ -2,6 +2,7 @@ import os
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # Path where PDFs will be stored
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
@@ -39,5 +40,7 @@ def get_brochure_vectorstore():
         print("No PDF documents found in data directory.")
         return None
 
-    _vectorstore = FAISS.from_documents(all_docs, _embeddings)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    split_docs = splitter.split_documents(all_docs)
+    _vectorstore = FAISS.from_documents(split_docs, _embeddings)
     return _vectorstore

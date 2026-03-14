@@ -71,12 +71,15 @@ def car_node(state):
         print("-----------------------------")
         from langchain_core.messages import HumanMessage
         # Feed the tool result back so the LLM can form a final answer
+        user_question = state["messages"][-1].content
         summary_prompt = (
-            f"Based on the following data retrieved from our database/brochures, "
-            f"answer the user's question directly and concisely.\n"
-            f"CRITICAL: DO NOT add conversational filler like 'Ah-ha!' or 'I found some information'. "
-            f"Just state the requested facts directly.\n\n"
-            f"Data: {tool_result}"
+            f"A tool retrieved this exact text from our brochures/database:\n"
+            f"---\n{tool_result}\n---\n\n"
+            f"User question: {user_question}\n\n"
+            f"INSTRUCTIONS: The retrieved text above contains the answer. "
+            f"Find the specific numbers and facts in it and state them directly. "
+            f"If you see a number in the retrieved text, include it in your answer. "
+            f"Never say 'not specified' or 'not available' if the retrieved text contains relevant values."
         )
         # Create a new system message that doesn't demand JSON
         summary_system = SystemMessage(content="You are a specialized car agent for TitanCare EV. Answer the user in plain text.")
