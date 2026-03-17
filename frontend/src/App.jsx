@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react'; 
 import CarDisplay from './components/CarDisplay';
-import ChatWidget from './components/ChatWidget';
+import ChatWidget from './components/ChatWidget'; // เติมบรรทัดนี้
 import carData from './data/cars.json';
 
 export default function App() {
@@ -21,9 +21,8 @@ export default function App() {
   const scroll = (direction) => {
     if (scrollRef.current) {
       const { scrollLeft } = scrollRef.current;
-      const scrollAmount = 200;
       scrollRef.current.scrollTo({
-        left: direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        left: direction === 'left' ? scrollLeft - 300 : scrollLeft + 300,
         behavior: 'smooth'
       });
     }
@@ -31,71 +30,56 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* ส่วนแถบเลือกรถที่เล็กและเป็นคอลัมน์เดียว */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-5xl mx-auto px-2 relative flex items-center group">
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 py-4 shadow-sm">
+        <div className="max-w-7xl mx-auto w-full px-4 relative flex items-center group">
           
-          {/* ปุ่มลูกศรซ้าย (จิ๋ว) */}
-          <button 
-            onClick={() => scroll('left')}
-            className="absolute left-0 z-10 p-0.5 bg-white/90 rounded-full border shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
-          >
-            <ChevronLeft size={14} />
+          <button onClick={() => scroll('left')} className="absolute left-0 z-10 p-2 bg-white/90 rounded-full border shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+            <ChevronLeft size={24} className="text-gray-600" />
           </button>
 
-          {/* รายการรถ - flex-nowrap บังคับแถวเดียวแน่นอน */}
-          <div 
-            ref={scrollRef}
-            className="flex items-center gap-4 overflow-x-auto no-scrollbar py-2 px-6 scroll-smooth flex-nowrap w-full"
-          >
+          <div ref={scrollRef} className="flex items-center gap-12 overflow-x-auto no-scrollbar px-12 w-full scroll-smooth flex-nowrap">
             {carData.map((car, idx) => (
               <button
                 key={car.Models}
                 onClick={() => handleModelChange(idx)}
-                className={`flex flex-col items-center justify-center min-w-[60px] transition-all duration-300 relative ${
-                  selectedIdx === idx ? 'opacity-100' : 'opacity-30 grayscale hover:opacity-80'
+                className={`flex flex-col items-center min-w-[100px] transition-all duration-300 relative pb-2 ${
+                  selectedIdx === idx ? 'opacity-100 scale-105' : 'opacity-40 grayscale hover:opacity-100 hover:grayscale-0'
                 }`}
               >
-                {/* รูปรถขนาดจิ๋วมาก (h-5 คือ 20px) */}
-                <img 
-                  src={getImagePath(car.image)} 
-                  alt={car.Models}
-                  className="h-5 w-auto object-contain mb-0.5" 
-                />
-                <span className={`text-[7px] font-black uppercase tracking-tighter whitespace-nowrap ${
-                  selectedIdx === idx ? 'text-[#cc0000]' : 'text-gray-400'
+                <img src={getImagePath(car.image)} alt={car.Models} className="h-14 w-auto object-contain mb-2" />
+                
+                <span className={`text-xs font-black uppercase whitespace-nowrap tracking-tight ${
+                  selectedIdx === idx ? 'text-[#cc0000]' : 'text-gray-500'
                 }`}>
                   {car.Models}
                 </span>
                 
-                {/* ขีดเส้นใต้แบบ Micro */}
-                {selectedIdx === idx && (
-                  <div className="absolute -bottom-2 w-full h-[1.5px] bg-[#cc0000]" />
-                )}
+                {selectedIdx === idx && <div className="absolute bottom-0 w-full h-[2px] bg-[#cc0000]" />}
               </button>
             ))}
           </div>
 
-          {/* ปุ่มลูกศรขวา (จิ๋ว) */}
-          <button 
-            onClick={() => scroll('right')}
-            className="absolute right-0 z-10 p-0.5 bg-white/90 rounded-full border shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
-          >
-            <ChevronRight size={14} />
+          <button onClick={() => scroll('right')} className="absolute right-0 z-10 p-2 bg-white/90 rounded-full border shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+            <ChevronRight size={24} className="text-gray-600" />
           </button>
         </div>
       </nav>
 
-      {/* เนื้อหาหลัก */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <CarDisplay 
-          car={carData[selectedIdx]} 
-          variantIdx={variantIdx} 
-          onVariantChange={setVariantIdx} 
-        />
+      <main className="max-w-6xl mx-auto px-4 py-8">
+        <CarDisplay car={carData[selectedIdx]} variantIdx={variantIdx} onVariantChange={setVariantIdx} />
       </main>
 
       <ChatWidget />
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+          animation: slideUp 0.6s ease-out forwards;
+        }
+      `}} />
     </div>
   );
 }

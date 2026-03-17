@@ -5,7 +5,6 @@ const ChatWidget = () => {
     const [isChatOpen, setIsChatOpen] = useState(false);
 
     return (
-        /* ส่วนหุ้มภายนอก: ต้องเป็น fixed เพื่อให้อยู่ที่เดิมเสมอ */
         <div style={{
             position: 'fixed',
             bottom: '30px',
@@ -16,7 +15,6 @@ const ChatWidget = () => {
             alignItems: 'flex-end'
         }}>
 
-            {/* 1. หน้าต่างแชททรงสี่เหลี่ยม (ปรากฏเมื่อเปิด) */}
             {isChatOpen && (
                 <div style={{
                     width: '350px',
@@ -31,31 +29,27 @@ const ChatWidget = () => {
                     border: '1px solid #e5e7eb',
                     animation: 'chatSlideIn 0.3s ease-out'
                 }}>
-                    {/* Header */}
                     <div style={{ padding: '16px', backgroundColor: '#007bff', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontWeight: 'bold' }}>Titan Care Chat</span>
                     </div>
-                    {/* Chat Content */}
                     <div style={{ flex: 1, padding: '16px', backgroundColor: '#f9fafb', overflowY: 'auto' }}>
 
-                        {/* กล่องข้อความ */}
                         <div style={{
-                            backgroundColor: '#007AFF', // เปลี่ยนสีพื้นหลังกล่อง (ตัวอย่าง: สีฟ้า iOS)
-                            color: '#ffffff',           // กำหนดสีตัวอักษร (สีขาว)
+                            backgroundColor: '#007AFF', 
+                            color: '#ffffff',           
                             padding: '12px',
                             borderRadius: '12px',
                             borderBottomLeftRadius: '2px',
                             boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                             fontSize: '14px',
                             maxWidth: '85%',
-                            lineHeight: '1.5'           // ช่วยให้อ่านง่ายขึ้น
+                            lineHeight: '1.5'         
                         }}>
                             สวัสดีครับ มีอะไรให้เราช่วยดูแลไหมครับ?
                         </div>
 
                     </div>
 
-                    {/* Input Area */}
                     <div style={{ padding: '12px', borderTop: '1px solid #eee', display: 'flex', gap: '8px', alignItems: 'center' }}>
                         <input
                             type="text"
@@ -67,7 +61,6 @@ const ChatWidget = () => {
                 </div>
             )}
 
-            {/* 2. ปุ่ม Bubble วงกลม (Floating Button) */}
             <button
                 onClick={() => setIsChatOpen(!isChatOpen)}
                 style={{
@@ -88,7 +81,6 @@ const ChatWidget = () => {
                 {isChatOpen ? <X size={28} /> : <MessageCircle size={28} />}
             </button>
 
-            {/* CSS Animation */}
             <style>{`
         @keyframes chatSlideIn {
           from { opacity: 0; transform: translateY(20px) scale(0.95); }
