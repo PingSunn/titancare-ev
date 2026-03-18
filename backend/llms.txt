@@ -1,7 +1,7 @@
 # LiteLLM Aliases Configuration
 # Local Ollama mappings
 llama3.1=ollama/llama3.1:latest
-qwen3=qwen3:4b
+qwen3=qwen3:8b
 default=qwen3
 
 # You can switch 'default' to other models if keys are set in .env
