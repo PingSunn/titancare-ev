@@ -2,6 +2,7 @@ import asyncio
 from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from api.routes import router as chat_router
 from sessions.db import init_session_db
 
@@ -27,6 +28,13 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:3000"], 
+    allow_credentials=True,
+    allow_methods=["*"], # อนุญาตทุก Method (GET, POST, OPTIONS)
+    allow_headers=["*"], # อนุญาตทุก Header
+)
 # Register API routes
 app.include_router(chat_router, prefix="/api/v1")
 
