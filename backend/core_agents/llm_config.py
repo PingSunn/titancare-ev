@@ -1,12 +1,11 @@
 import os
-from typing import Dict, Any
 from langchain_ollama import ChatOllama
-import logging
+from langchain_openai import ChatOpenAI
 
 def get_llm():
-    """Reads llms.txt, resolves the default alias, and returns the configured Ollama LLM."""
+    """Reads llms.txt, resolves the default alias, and returns the configured LLM."""
     file_path = os.path.join(os.path.dirname(__file__), "..", "llms.txt")
-    
+
     aliases = {}
     if os.path.exists(file_path):
         with open(file_path, "r") as f:
@@ -17,20 +16,30 @@ def get_llm():
                 if "=" in line:
                     key, val = line.split("=", 1)
                     aliases[key.strip()] = val.strip()
-    
+
     # Resolve default model
     model_val = aliases.get("default", "llama3.1")
-    
-    # Resolve through aliases (e.g., default -> llama3 -> ollama/llama3:latest)
+
+    # Resolve through aliases (e.g., default -> stepfun-flash -> openrouter/...)
     visited = set()
     while model_val in aliases and model_val not in visited:
         visited.add(model_val)
         model_val = aliases[model_val]
-        
-    # Standardize string for Langchain Ollama Integration
+
+    # OpenRouter provider
+    if model_val.startswith("openrouter/"):
+        model_id = model_val[len("openrouter/"):]
+        api_key = os.getenv("OPENROUTER_API_KEY", "")
+        return ChatOpenAI(
+            model=model_id,
+            temperature=0.0,
+            base_url="https://openrouter.ai/api/v1",
+            api_key=api_key,
+        )
+
+    # Ollama provider (default)
     if model_val.startswith("ollama/"):
-        model_val = model_val.replace("ollama/", "")
-        
+        model_val = model_val[len("ollama/"):]
     ollama_base_url = os.getenv("OLLAMA_API_BASE", "http://localhost:11434")
     return ChatOllama(model=model_val, temperature=0.0, base_url=ollama_base_url)
 

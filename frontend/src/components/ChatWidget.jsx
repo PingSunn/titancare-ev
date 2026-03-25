@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const ChatWidget = () => {
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -110,9 +112,26 @@ const ChatWidget = () => {
                                 fontSize: '14px',
                                 maxWidth: '85%',
                                 lineHeight: '1.5',
-                                whiteSpace: 'pre-wrap' // รองรับการขึ้นบรรทัดใหม่จาก AI
                             }}>
-                                {msg.text}
+                                {msg.sender === 'bot' ? (
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={{
+                                            p: ({ children }) => <p style={{ margin: '0 0 8px 0' }}>{children}</p>,
+                                            ul: ({ children }) => <ul style={{ margin: '4px 0', paddingLeft: '20px' }}>{children}</ul>,
+                                            ol: ({ children }) => <ol style={{ margin: '4px 0', paddingLeft: '20px' }}>{children}</ol>,
+                                            li: ({ children }) => <li style={{ marginBottom: '2px' }}>{children}</li>,
+                                            strong: ({ children }) => <strong style={{ fontWeight: '700' }}>{children}</strong>,
+                                            h1: ({ children }) => <h1 style={{ fontSize: '16px', fontWeight: 'bold', margin: '8px 0 4px' }}>{children}</h1>,
+                                            h2: ({ children }) => <h2 style={{ fontSize: '15px', fontWeight: 'bold', margin: '8px 0 4px' }}>{children}</h2>,
+                                            h3: ({ children }) => <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '6px 0 2px' }}>{children}</h3>,
+                                        }}
+                                    >
+                                        {msg.text}
+                                    </ReactMarkdown>
+                                ) : (
+                                    msg.text
+                                )}
                             </div>
                         ))}
 

@@ -1,9 +1,10 @@
 # LiteLLM Aliases Configuration
-# Local Ollama mappings
+
+# OpenRouter models
+stepfun-flash=openrouter/stepfun/step-3.5-flash:free
+default=stepfun-flash
+
+# Local Ollama mappings (switch 'default' below to use these)
 llama3.1=ollama/llama3.1:latest
 qwen3=qwen3:8b
-default=qwen3
-
-# You can switch 'default' to other models if keys are set in .env
-# default=gpt-4o-mini
-# default=gemini/gemini-pro
+# default=qwen3
