@@ -1,7 +1,7 @@
 [
   {
     "Models": "ALON UT",
-    "image": "byd_atto_3_premium.png",
+    "image": "aion_ut_premium.png",
     "Variants": [
       {
         "Sub_model": "STANDARD",
@@ -121,7 +121,7 @@
   },
   {
     "Models": "BYD SEALION 7",
-    "image": "byd_atto_3_premium.png",
+    "image": "BYD_SEALION_7_AWD_PERFORMANCE.png",
     "Variants": [
       {
         "Sub_model": "PREMUIM",
@@ -181,7 +181,7 @@
   },
   {
     "Models": "GEELY EX2",
-    "image": "byd_atto_3_premium.png",
+    "image": "GEELY_EX2_PRO.png",
     "Variants": [
       {
         "Sub_model": "PRO",
@@ -241,7 +241,7 @@
   },
   {
     "Models": "GEELY EX5",
-    "image": "byd_atto_3_premium.png",
+    "image": "GEELY_EX5_MAX.png",
     "Variants": [
       {
         "Sub_model": "PRO",
@@ -301,7 +301,7 @@
   },
   {
     "Models": "JAECOO 6 EV",
-    "image": "byd_atto_3_premium.png",
+    "image": "JAECOO_6_EV.png",
     "Variants": [
       {
         "Sub_model": "Long Range 2WD PRO",
@@ -388,7 +388,7 @@
   },
   {
     "Models": "MG 4 ELECTRIC",
-    "image": "byd_atto_3_premium.png",
+    "image": "MG_4_ELECTRIC.png",
     "Variants": [
       {
         "Sub_model": "49 kWH : D",
@@ -421,7 +421,7 @@
   },
   {
     "Models": "NETA V -II",
-    "image": "byd_atto_3_premium.png",
+    "image": "NETA_V-II_SMART.png",
     "Variants": [
       {
         "Sub_model": "LITE",
@@ -481,7 +481,7 @@
   },
   {
     "Models": "TESLA Model 3",
-    "image": "byd_atto_3_premium.png",
+    "image": "TESLA_Model_3_STANDARD_RWD.png",
     "Variants": [
       {
         "Sub_model": "STANDARD RWD",
