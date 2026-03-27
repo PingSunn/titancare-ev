@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { MessageCircle, X, Send, Maximize2, Minimize2 } from 'lucide-react';
 
 const ChatWidget = () => {
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
     
     // 1. สร้าง State สำหรับระบบแชท
     const [messages, setMessages] = useState([
@@ -76,22 +77,51 @@ const ChatWidget = () => {
         }
     };
 
+    const chatPanelStyle = isExpanded ? {
+        position: 'fixed', top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '620px', height: '720px',
+        backgroundColor: 'white',
+        borderRadius: '16px', boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
+        display: 'flex', flexDirection: 'column',
+        overflow: 'hidden', border: '1px solid #e5e7eb',
+        zIndex: 10000,
+        animation: 'chatSlideIn 0.3s ease-out'
+    } : {
+        width: '350px', height: '500px',
+        backgroundColor: 'white',
+        borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
+        display: 'flex', flexDirection: 'column', marginBottom: '20px',
+        overflow: 'hidden', border: '1px solid #e5e7eb',
+        animation: 'chatSlideIn 0.3s ease-out'
+    };
+
     return (
         <div style={{
             position: 'fixed', bottom: '30px', right: '30px',
             zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end'
         }}>
 
-            {isChatOpen && (
+            {isChatOpen && isExpanded && (
                 <div style={{
-                    width: '350px', height: '500px', backgroundColor: 'white',
-                    borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
-                    display: 'flex', flexDirection: 'column', marginBottom: '20px',
-                    overflow: 'hidden', border: '1px solid #e5e7eb',
-                    animation: 'chatSlideIn 0.3s ease-out'
-                }}>
+                    position: 'fixed', inset: 0,
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    zIndex: 9999,
+                    animation: 'fadeIn 0.2s ease-out'
+                }} onClick={() => setIsExpanded(false)} />
+            )}
+
+            {isChatOpen && (
+                <div style={chatPanelStyle}>
                     <div style={{ padding: '16px', backgroundColor: '#007bff', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontWeight: 'bold' }}>Titan Care Assistant</span>
+                        <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center', opacity: 0.85 }}
+                            title={isExpanded ? 'Collapse' : 'Expand'}
+                        >
+                            {isExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+                        </button>
                     </div>
                     
                     {/* พื้นที่แสดงข้อความ */}
@@ -172,6 +202,10 @@ const ChatWidget = () => {
                 @keyframes chatSlideIn {
                   from { opacity: 0; transform: translateY(20px) scale(0.95); }
                   to { opacity: 1; transform: translateY(0) scale(1); }
+                }
+                @keyframes fadeIn {
+                  from { opacity: 0; }
+                  to { opacity: 1; }
                 }
             `}</style>
         </div>
